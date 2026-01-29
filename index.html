@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Knowledge & Automation Survey - Chronicle Project Team</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%);
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .header h1 {
+            color: #1F2937;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header .subtitle {
+            color: #6B7280;
+            margin-bottom: 1rem;
+        }
+        
+        .header .description {
+            border-top: 1px solid #E5E7EB;
+            padding-top: 1rem;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: #2563EB;
+            color: white;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        
+        .section-header:hover {
+            background: #1D4ED8;
+        }
+        
+        .section-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .section-number {
+            background: white;
+            color: #2563EB;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .section-content {
+            padding: 1.5rem;
+            display: none;
+        }
+        
+        .section-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-note {
+            font-size: 0.8rem;
+            color: #6B7280;
+            font-style: italic;
+            margin-bottom: 0.75rem;
+        }
+        
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+        
+        input[type="radio"], input[type="checkbox"] {
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+        }
+        
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+        
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+        
+        .nested-input {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+        
+        .info-box {
+            background: #EFF6FF;
+            border-left: 4px solid #2563EB;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .info-box h4 {
+            color: #1E3A8A;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .info-box p {
+            font-size: 0.85rem;
+            color: #374151;
+            margin-bottom: 0.75rem;
+        }
+        
+        .level-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .level-card h5 {
+            color: #1F2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .level-card .definition {
+            font-size: 0.9rem;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        .level-card .example {
+            font-size: 0.85rem;
+            color: #6B7280;
+            font-style: italic;
+        }
+        
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #2563EB;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem;
+        }
+        
+        .toggle-btn:hover {
+            color: #1D4ED8;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .submit-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .submit-note {
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+        
+        .highlight-box {
+            background: #F3F4F6;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .example-text {
+            font-size: 0.8rem;
+            color: #6B7280;
+            margin-bottom: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="aiSurveyForm">
+            <div class="header">
+                <h1>AI Knowledge & Automation Survey</h1>
+                <p class="subtitle">Chronicle Project Team Assessment</p>
+                <div class="description">
+                    Survey ini bertujuan untuk mengidentifikasi level pemahaman AI, tools yang digunakan, 
+                    dan kebutuhan learning di team Chronicle. Mohon isi dengan jujur untuk membantu kami 
+                    menyusun program training yang tepat.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(1)">
+                    <div class="section-header-left">
+                        <div class="section-number">1</div>
+                        <div class="section-title">Informasi Dasar</div>
+                    </div>
+                    <span id="arrow-1">▼</span>
+                </div>
+                <div class="section-content active" id="section-1">
+                    <div class="form-group">
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text" name="name" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Team/Squad</label>
+                        <input type="text" name="team" placeholder="Masukkan team/squad" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Role/Position</label>
+                        <input type="text" name="role" placeholder="Masukkan role/position" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(2)">
+                    <div class="section-header-left">
+                        <div class="section-number">2</div>
+                        <div class="section-title">Penggunaan AI Tools</div>
+                    </div>
+                    <span id="arrow-2">▼</span>
+                </div>
+                <div class="section-content" id="section-2">
+                    <div class="form-group">
+                        <label class="form-label">Apakah Anda menggunakan LLM dalam pekerjaan sehari-hari?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="usingLLM" value="Ya" onchange="toggleLLMTools()" required>
+                                <span>Ya</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="usingLLM" value="Tidak" onchange="toggleLLMTools()">
+                                <span>Tidak</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="usingLLM" value="Kadang-kadang" onchange="toggleLLMTools()">
+                                <span>Kadang-kadang</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden" id="llm-tools-section">
+                        <label class="form-label">LLM apa yang Anda gunakan? (boleh pilih lebih dari satu)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option"><input type="checkbox" name="llmTools" value="ChatGPT"><span>ChatGPT</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="llmTools" value="Claude"><span>Claude</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="llmTools" value="Gemini"><span>Gemini</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="llmTools" value="Copilot"><span>Copilot</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="llmTools" value="Llama"><span>Llama</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="llmTools" value="Mistral"><span>Mistral</span></label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="llmTools" value="Lainnya" onchange="toggleOtherLLM()">
+                                <span>Lainnya</span>
+                            </label>
+                            <div class="nested-input hidden" id="other-llm-input">
+                                <input type="text" name="otherLLM" placeholder="Sebutkan LLM lainnya...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Apakah Anda sudah menggunakan advanced AI tools?</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option"><input type="checkbox" name="advancedTools" value="Antigravity"><span>Antigravity (Anthropic)</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="advancedTools" value="Claude Code"><span>Claude Code</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="advancedTools" value="Gemini CLI"><span>Gemini CLI</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="advancedTools" value="Cursor AI"><span>Cursor AI</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="advancedTools" value="Windsurf"><span>Windsurf</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="advancedTools" value="Aider"><span>Aider</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="advancedTools" value="Belum"><span>Belum menggunakan</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Apakah Anda pernah mengintegrasikan API Key LLM?</label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="apiKey" value="Ya, sering" onchange="toggleAPIDetails()"><span>Ya, sering</span></label>
+                            <label class="radio-option"><input type="radio" name="apiKey" value="Ya, beberapa kali" onchange="toggleAPIDetails()"><span>Beberapa kali</span></label>
+                            <label class="radio-option"><input type="radio" name="apiKey" value="Belum pernah" onchange="toggleAPIDetails()"><span>Belum pernah</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden" id="api-details-section">
+                        <textarea name="apiDetails" rows="3" placeholder="Contoh: Google Colab, Python script, dll."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(3)">
+                    <div class="section-header-left">
+                        <div class="section-number">3</div>
+                        <div class="section-title">Tools yang Dibuat (6 Bulan Terakhir)</div>
+                    </div>
+                    <span id="arrow-3">▼</span>
+                </div>
+                <div class="section-content" id="section-3">
+                    <div class="form-group">
+                        <label class="form-label">Membuat tools/scripts/automation?</label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="recentTools" value="Ya" onchange="toggleToolsList()"><span>Ya</span></label>
+                            <label class="radio-option"><input type="radio" name="recentTools" value="Tidak" onchange="toggleToolsList()"><span>Tidak</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group hidden" id="tools-list-section">
+                        <textarea name="toolsList" rows="5" placeholder="Nama Tool | Teknologi | Deskripsi Singkat"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(4)">
+                    <div class="section-header-left">
+                        <div class="section-number">4</div>
+                        <div class="section-title">Minat Belajar AI</div>
+                    </div>
+                    <span id="arrow-4">▼</span>
+                </div>
+                <div class="section-content" id="section-4">
+                    <div class="form-group">
+                        <label class="form-label">Ingin belajar AI lebih dalam?</label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="wantToLearn" value="Ya" onchange="toggleLearningInterest()"><span>Ya</span></label>
+                            <label class="radio-option"><input type="radio" name="wantToLearn" value="Tidak" onchange="toggleLearningInterest()"><span>Tidak</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group hidden" id="learning-topics-section">
+                        <div class="checkbox-group">
+                            <label class="checkbox-option"><input type="checkbox" name="learningTopics" value="Gemini CLI"><span>Gemini CLI</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="learningTopics" value="Claude Code"><span>Claude Code</span></label>
+                            <label class="checkbox-option"><input type="checkbox" name="learningTopics" value="Automation QGIS"><span>Automation QGIS</span></label>
+                        </div>
+                        <textarea name="learningPath" rows="3" placeholder="Bagaimana Anda ingin mulai belajar?" style="margin-top:10px"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(5)">
+                    <div class="section-header-left">
+                        <div class="section-number">5</div>
+                        <div class="section-title">AI Level & Awareness</div>
+                    </div>
+                    <span id="arrow-5">▼</span>
+                </div>
+                <div class="section-content" id="section-5">
+                    <div class="form-group">
+                        <label class="form-label">Aware Agentic AI?</label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="awareness" value="Ya"><span>Ya</span></label>
+                            <label class="radio-option"><input type="radio" name="awareness" value="Tidak"><span>Tidak</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Level saat ini?</label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="currentLevel" value="Level 1"><span>Level 1: Chatbot</span></label>
+                            <label class="radio-option"><input type="radio" name="currentLevel" value="Level 2"><span>Level 2: AI Agent</span></label>
+                            <label class="radio-option"><input type="radio" name="currentLevel" value="Level 3"><span>Level 3: Agentic AI</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button type="submit" class="submit-btn" id="submitBtn">Kirim Jawaban Survey</button>
+                <p class="submit-note">Data akan disimpan otomatis ke Google Sheets Team</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // --- LOGIC UI (Toggle Sections) ---
+        function toggleSection(id) {
+            const content = document.getElementById(`section-${id}`);
+            const arrow = document.getElementById(`arrow-${id}`);
+            const isActive = content.classList.contains('active');
+            
+            document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('[id^="arrow-"]').forEach(a => a.innerText = '▼');
+
+            if (!isActive) {
+                content.classList.add('active');
+                arrow.innerText = '▲';
+            }
+        }
+
+        function toggleLLMTools() {
+            const val = document.querySelector('input[name="usingLLM"]:checked')?.value;
+            document.getElementById('llm-tools-section').classList.toggle('hidden', val === 'Tidak');
+        }
+
+        function toggleOtherLLM() {
+            const checkbox = document.querySelector('input[name="llmTools"][value="Lainnya"]');
+            document.getElementById('other-llm-input').classList.toggle('hidden', !checkbox.checked);
+        }
+
+        function toggleAPIDetails() {
+            const val = document.querySelector('input[name="apiKey"]:checked')?.value;
+            document.getElementById('api-details-section').classList.toggle('hidden', val === 'Belum pernah');
+        }
+
+        function toggleToolsList() {
+            const val = document.querySelector('input[name="recentTools"]:checked')?.value;
+            document.getElementById('tools-list-section').classList.toggle('hidden', val === 'Tidak');
+        }
+
+        function toggleLearningInterest() {
+            const val = document.querySelector('input[name="wantToLearn"]:checked')?.value;
+            document.getElementById('learning-topics-section').classList.toggle('hidden', val === 'Tidak');
+        }
+
+        // --- LOGIC PENGIRIMAN DATA ---
+        const scriptURL = 'TEMPEL_URL_WEB_APP_ANDA_DI_SINI'; // GANTI INI DENGAN URL DARI GOOGLE APPS SCRIPT
+        const form = document.getElementById('aiSurveyForm');
+        const btn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerText = "Sedang Mengirim...";
+
+            const formData = new FormData(form);
+            const data = {};
+
+            // Menggabungkan nilai checkbox menjadi satu string yang dipisahkan koma
+            formData.forEach((value, key) => {
+                if (data[key]) {
+                    data[key] = data[key] + ", " + value;
+                } else {
+                    data[key] = value;
+                }
+            });
+
+            // Kirim ke Google Apps Script
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors', // Penting agar tidak kena CORS error di browser
+                body: new URLSearchParams(data) 
+            })
+            .then(() => {
+                alert("Terima kasih! Data survey Anda berhasil terkirim.");
+                form.reset();
+                btn.disabled = false;
+                btn.innerText = "Kirim Jawaban Survey";
+                location.reload(); // Refresh halaman setelah sukses
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert("Terjadi kesalahan saat mengirim. Pastikan URL Apps Script sudah benar.");
+                btn.disabled = false;
+                btn.innerText = "Kirim Jawaban Survey";
+            });
+        });
+    </script>
+</body>
+</html>
